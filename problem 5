@@ -1,0 +1,39 @@
+# 5. Longest Palindromic Substring
+# Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+# Example:
+# Input: "babad"
+# Output: "bab"
+# Note: "aba" is also a valid answer.
+
+code： python3
+
+# 题目： 求给定字符串s的最长回文子字符串
+# 思路： 1 从起始位置逐步扫描到给定字符串s的尾端
+        2  在每一位置i向两边逐步扩展子串，并判断该子串是否为回文，然后找出以位置i为中心的最长回文子串，并返回，这里需要区分两种情况：A 以位置i为中心的
+        回文子串长度为奇数 B 以位置i为中心的回文子串长度为偶数
+        3 在每一位置i都记录最长回文子串的长度并与之前的回文子串作比较，保存目前最长的回文子串，遍历一周后将最长的回文子串返回即可
+        
+        
+class Solution:
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        l = len(s)
+        max_palind = "" # 初始化起始的最长的回文子串为空
+        for i in range(l):
+            for j in range(2): # 这里考虑两种情况：字符子串的长度为奇数或偶数，奇数：j为0， 偶数：j为1
+                current_palind = self.palind(s, i, i+j)
+                if len(current_palind)>len(max_palind):
+                    max_palind = current_palind # 找到目前最长的回文子串并保存
+        return max_palind
+        
+    # 该函数负责找出在位置i的最长回文子串
+    def palind(self, s, l, r):
+        while l>=0 and r<len(s) and s[l]==s[r]:
+            l-=1 # 索引往左移动一位
+            r+=1 # 索引往右移动一位
+        return s[l+1: r]
+            
