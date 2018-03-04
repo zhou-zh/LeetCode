@@ -5,7 +5,7 @@
 # Output: "bab"
 # Note: "aba" is also a valid answer.
 
-code： python3
+code： python3  难度：Medium
 
 
 # 题目： 求给定字符串s的最长回文子字符串
