@@ -1,0 +1,48 @@
+9. Palindrome Number
+Determine whether an integer is a palindrome. Do this without extra space.
+
+code： python3
+
+# 题目：判断一个整数是否为回文数字 难度：easy
+
+method 1：
+# 思路：将数字转化为字符串再逆转比较， 但是要求不能使用额外的空间，所以照理说这个方法是不行的，但是。。还是神奇地accept了，先贴上。。
+class Solution:
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x<0:
+            return False
+        elif 0<=x<10:
+            return True
+        else:
+            s = str(x)
+            return s==s[::-1]
+            
+method 2：
+# 思路： 逐个的比较该整数两端数字的大小，若不相等则返回False，注意：python3的整除为//
+class Solution:
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x<0:
+            return False
+        elif 0<= x <10:
+            return True
+        else:
+            d = 1 
+            while x//d >= 10:
+                d *= 10 # 计算该整数的位数，例如 x =123， 则d =100
+            while d > 1:
+                right = x % 10 # 求得最右端的数字
+                left = x // d  # 求得最左端的数字
+                if right != left:
+                    return False
+                x = (x % d) // 10 # 剔除该数字两端的数字
+                d //= 100
+                
+            return True
