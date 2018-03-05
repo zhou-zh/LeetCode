@@ -1,0 +1,24 @@
+35. Search Insert Position
+Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+You may assume no duplicates in the array.
+
+题目：在一个排好序的数组查找某值，存在则返回对应的value, 不存在则返回能插入到数组中的index  难度：easy
+思路：就是标准的二分查找，如果找到就犯规其索引，若找不到，循环结束后low必然大于high， 且目标值应在两者之间，所以返回low即可
+class Solution:
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        low = 0
+        high = len(nums)-1
+        while low<= high:
+            mid = low + (high-low)//2
+            if nums[mid]==target:
+                return mid
+            elif nums[mid]< target:
+                low = mid +1
+            elif nums[mid] > target:
+                high = mid -1
+        return low
