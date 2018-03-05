@@ -1,0 +1,29 @@
+
+66. Plus One
+Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
+
+You may assume the integer do not contain any leading zero, except the number 0 itself.
+
+The digits are stored such that the most significant digit is at the head of the list.
+题目： 给你一个用数组表示的数，求加一之后的结果，结果还是用数组表示。 难度：easy 
+topic：array
+思路：将数组转化为一个数字，然后加1，再将数字转化为数组返回即可
+
+class Solution:
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        n = len(digits)
+       
+        a = ""
+        for i in range(n):
+            a+= str(digits[i]) # 转化为字符串
+        b = int(a) +1
+        d = str(b)
+        l = len(d)
+        lists = []
+        for i in range(l):
+            lists.append(int(d[i])) # 转化为数组
+        return lists
