@@ -1,0 +1,16 @@
+各种排序算法的总结
+code：python
+
+1. 冒泡排序
+思路：从起始位置开始逐个比较其右边数字大小，若比右边大，则互换位置，需要两个循环
+最快O(n), 最差O(n2)
+
+def bubble_sort(array):
+  n = len(array)
+  for i in range(n-1):
+    for j in range(n-i-1):
+      if array[j]>array[j+1]:
+        array[j], array[j+1] = array[j+1], array[j]
+  return array
+2. 选择排序
+思路：逐个扫描未查找区域，找出未扫描
