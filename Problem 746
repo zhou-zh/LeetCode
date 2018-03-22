@@ -1,0 +1,27 @@
+746. Min Cost Climbing Stairs
+On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
+
+Once you pay the cost, you can either climb one or two steps. 
+You need to find minimum cost to reach the top of the floor, and you can either start from the step with index 0,
+or the step with index 1.
+
+描述：有一个楼梯，每次可以走1层或者2层，cost数组表示每一层所需要花费的值。可以从第一层或者第二层开始。求到达顶端所花费大的最小的值。
+思路：采用动态规划的思想，额外使用一个数组记录在每一步最小代价，取该数组最后两个数值中最小的即可。然后是定义状态状态转移函数，
+cost_arr[i]为当前i步的花费加上前两步记录矩阵的最小值。
+
+
+class Solution:
+
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """           
+        l = len(cost) # 得到cost的长度
+        cost_arr = [0 for i in range(l)] # 初始化一个状态矩阵来存贮在i步所花费的最小代价
+        cost_arr[0] = cost[0]   # 定义初始状态 第一步和第二步
+        cost_arr[1] = cost[1]
+        for i in range(2, l):
+            cost_arr[i] = cost[i] + min(cost_arr[i-1], cost_arr[i-2]) # 定义状态转移函数
+        return min(cost_arr[l-1], cost_arr[l-2])
+
