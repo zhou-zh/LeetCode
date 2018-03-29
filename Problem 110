@@ -1,0 +1,27 @@
+110. Balanced Binary Tree
+Given a binary tree, determine if it is height-balanced.
+判断一颗二叉树是否为平衡二叉树
+思路：自顶而下的遍历判断子树是否为平衡二叉树
+
+class Solution:
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root == None:
+            return True    # 空树为平衡二叉树
+ 
+        left = self.depth(root.left)    # 求出左子树的深度
+        right = self.depth(root.right)  # 求出右子树的深度     
+        # 判断三个条件：1 左子树的和右子树的深度之差不大于1 
+        # 2 递归的求该子树的左子树是否平衡 
+        # 3 递归的求该子树的右子树是否平衡
+        # 以上三个条件同时满足才判定为真
+        return abs(left - right)<= 1 and self.isBalanced(root.right) and self.isBalanced(root.left)
+        
+    def depth(self, root):
+    # 求一颗树的深度，递归的求解
+        if root == None:
+            return 0
+        return max(self.depth(root.left), self.depth(root.right))+1
