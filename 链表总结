@@ -1,0 +1,47 @@
+链表常考题型
+
+基本知识点
+单链表
+双链表
+循环链表
+删除节点
+添加节点
+
+1.链表的增删改查
+
+初始化一个单链表节点
+class ListNode:
+  def __init__(self, x):
+      self.val  = x
+      self.next = None
+    
+
+class MyLinkedList:
+  def __init__(self):
+    self.size  = 0
+    self.head = ListNode(0)
+    
+  def get(self, index):
+    if  index  < 0 or  index >= self.size:
+      return  -1  
+    
+    cur = self.head
+    
+    for _ in range(index+1):
+      cur = cur.next
+    
+    return cur,val
+    
+
+
+
+2.链表反转
+
+
+
+
+3.链表相交
+
+
+
+4.判断链表是否有环，环的入口
