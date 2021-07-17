@@ -11,37 +11,126 @@
 
 初始化一个单链表节点
 class ListNode:
-  def __init__(self, x):
-      self.val  = x
-      self.next = None
-    
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 class MyLinkedList:
-  def __init__(self):
-    self.size  = 0
-    self.head = ListNode(0)
-    
-  def get(self, index):
-    if  index  < 0 or  index >= self.size:
-      return  -1  
-    
-    cur = self.head
-    
-    for _ in range(index+1):
-      cur = cur.next
-    
-    return cur,val
-    
+    def __init__(self):
+        self.size = 0
+        self.head = ListNode(0)  # sentinel node as pseudo-head
+        
 
+    def get(self, index: int) -> int:
+        """
+        Get the value of the index-th node in the linked list. If the index is invalid, return -1.
+        """
+        # if index is invalid
+        if index < 0 or index >= self.size:
+            return -1
+        
+        curr = self.head
+        # index steps needed 
+        # to move from sentinel node to wanted index
+        for _ in range(index + 1):
+            curr = curr.next
+        return curr.val
+            
 
+    def addAtHead(self, val: int) -> None:
+        """
+        Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
+        """
+        self.addAtIndex(0, val)
+        
+
+    def addAtTail(self, val: int) -> None:
+        """
+        Append a node of value val to the last element of the linked list.
+        """
+        self.addAtIndex(self.size, val)
+        
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        """
+        Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.
+        """
+        # If index is greater than the length, 
+        # the node will not be inserted.
+        if index > self.size:
+            return
+        
+        # [so weird] If index is negative, 
+        # the node will be inserted at the head of the list.
+        if index < 0:
+            index = 0
+        
+        self.size += 1
+        # find predecessor of the node to be added
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+            
+        # node to be added
+        to_add = ListNode(val)
+        # insertion itself
+        to_add.next = pred.next
+        pred.next = to_add
+        
+
+    def deleteAtIndex(self, index: int) -> None:
+        """
+        Delete the index-th node in the linked list, if the index is valid.
+        """
+        # if the index is invalid, do nothing
+        if index < 0 or index >= self.size:
+            return
+        
+        self.size -= 1
+        # find predecessor of the node to be deleted
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+            
+        # delete pred.next 
+        pred.next = pred.next.next
+    
+  删除倒数第N个节点：
+  采用快慢指针法，快指针先走N步，然后快指针和慢指针一起移动，当快指针走到终点时，将慢指针指向的节点返回即可
 
 2.链表反转
+两种思路：
+A： 双指针法
+新建两个指针，一个指向current node， 一个是上一个节点 pre, 然后现有节点不为空时，不断反转，直到为空
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+      cur = head
+      pre = None
+      while cur :
+        next = cur.next
+        cur.next = pre
+        pre = cur
+        cur = next
+     return pre
 
-
+B：递归法
+1. 终止条件：如果head为空或者head.next为空，返回head
+2. 新头结点newHead指向尾结点，此处进入递归，递归一直到遍历到尾结点时才会返回
+3. 每一层递归，该层递归中的head会让下一个节点指向自己，head.next.next = head；然后head自己指向空。以此达到反转的目的。
+4. 返回新链表的头结点newHead
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+      if head or head.next is None:
+        return head
+      next = self.reverseList(head.next)
+      head.next.next = head
+      head.next = None
+      return next
 
 
 3.链表相交
-
+a.快慢指针：两个链表相交的话，那相交后的链表部分是一样的，所以相交点是两个链表的倒数第k的节点
+先判断两个表
 
 
 4.判断链表是否有环，环的入口
